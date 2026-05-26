@@ -19,9 +19,10 @@ requirements:
   host:
     - pip
     - python
+    - poetry-core >=1
   run:
-    - caio >=0.9.0,<10
     # Conda version of ~=0.9.0
+    - caio >=0.9.0,<10
     - python
 
 test:
