@@ -25,6 +25,7 @@ requirements:
     - caio >=0.9.0,<10
     - python
 
+# no project tests available in pypi, and no GH release for version 3.9.0
 test:
   imports:
     - aiofile
