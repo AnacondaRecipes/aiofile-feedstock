@@ -12,17 +12,17 @@ source:
 
 build:
   number: 0
-  noarch: python
+  skip: true  # [py<38]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vvv
 
 requirements:
   host:
     - pip
-    - python >=3.7
+    - python
   run:
     - caio >=0.9.0,<10
     # Conda version of ~=0.9.0
-    - python >=3.7
+    - python
 
 test:
   imports:
