@@ -33,10 +33,14 @@ test:
     - pip
 
 about:
-  home: http://github.com/mosquito/aiofile
+  home: https://github.com/mosquito/aiofile
   summary: Asynchronous file operations.
+  description: Real asynchronous file operations with asyncio support.
   license: Apache-2.0
+  license_family: Apache
   license_file: LICENCE
+  dev_url: https://github.com/mosquito/aiofile
+  doc_url: https://github.com/mosquito/aiofile
 
 extra:
   recipe-maintainers:
