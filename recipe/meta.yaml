@@ -39,7 +39,7 @@ about:
   description: Real asynchronous file operations with asyncio support.
   license: Apache-2.0
   license_family: Apache
-  license_file: LICENCE
+  license_file: LICENCE.md
   dev_url: https://github.com/mosquito/aiofile
   doc_url: https://github.com/mosquito/aiofile
 
