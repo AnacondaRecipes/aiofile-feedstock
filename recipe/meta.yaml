@@ -1,5 +1,5 @@
 {% set name = "aiofile" %}
-{% set version = "3.8.1" %}
+{% set version = "3.9.0" %}
 
 
 package:
@@ -7,36 +7,43 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/aiofile-{{ version }}.tar.gz
-  sha256: 1623b98d88fbd16bbd2808d010de4e185a700e950ed3f17455dd851aa2455f40
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: e5ad718bb148b265b6df1b3752c4d1d83024b93da9bd599df74b9d9ffcf7919b
 
 build:
   number: 0
-  noarch: python
-  script: {{ PYTHON }} -m pip install . -vv
+  skip: true  # [py<38]
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vvv
 
 requirements:
   host:
     - pip
-    - python >=3.7
+    - python
+    - poetry-core >=1
   run:
-    - caio >=0.9.0,<10
     # Conda version of ~=0.9.0
-    - python >=3.7
+    - caio >=0.9.0,<10
+    - python
 
+# no project tests available in pypi, and no GH release for version 3.9.0
 test:
   imports:
     - aiofile
   commands:
     - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
   requires:
     - pip
 
 about:
-  home: http://github.com/mosquito/aiofile
+  home: https://github.com/mosquito/aiofile
   summary: Asynchronous file operations.
+  description: Real asynchronous file operations with asyncio support.
   license: Apache-2.0
-  license_file: LICENCE
+  license_family: Apache
+  license_file: LICENCE.md
+  dev_url: https://github.com/mosquito/aiofile
+  doc_url: https://github.com/mosquito/aiofile
 
 extra:
   recipe-maintainers:
