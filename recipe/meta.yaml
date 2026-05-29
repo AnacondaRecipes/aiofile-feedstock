@@ -9,9 +9,14 @@ package:
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: e5ad718bb148b265b6df1b3752c4d1d83024b93da9bd599df74b9d9ffcf7919b
+  # use .get() instead of [] for metadata in version.py. square brackets will throw a KeyError for missing
+  # keys access on newer python or if importlib_metadata is present. due to lack of optional metadata fields
+  # like Home-page, this can break downstream packages without the patch.
+  patches:
+    - use_get_for_metadata.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [py<38]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vvv
 
@@ -32,8 +37,11 @@ test:
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    # exercises import with importlib_metadata. it confirms use_get_for_metadata patch works, and will fail otherwise.
+    - python -c "import importlib_metadata; import aiofile"
   requires:
     - pip
+    - importlib_metadata # used for testing use_get_for_metadata patch
 
 about:
   home: https://github.com/mosquito/aiofile
